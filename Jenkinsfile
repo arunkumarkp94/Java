@@ -1,19 +1,12 @@
 pipeline {
   agent { label 'Java_node' }
   stages {
-    stage ('CLONE') {
-      steps {
-        echo "cloning java project from git"
-        sh ''' 
-		    git push https://github.com/arunkumarkp94/Java.git
-	   '''
-        }
-    }
-   stage ('BUILD') {
+       stage ('BUILD') {
 		agent { label 'Java_node' }
 		steps {
 			echo "Build a binary"
         sh ''' 
+			cd ~/jenkins/workspace/Deploy_Java_Build_Tomcat/Java
 			mvn clean package
 	   '''
       }
