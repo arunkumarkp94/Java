@@ -14,6 +14,7 @@ pipeline {
 		steps {
 			echo "Build a binary"
         sh ''' 
+			cd ~/jenkins/workspace/Deploy_Java_Build_Tomcat/Java
 			mvn clean package
 	   '''
       }
