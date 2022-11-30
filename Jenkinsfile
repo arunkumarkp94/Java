@@ -5,7 +5,7 @@ pipeline {
       steps {
         echo "cloning java project from git"
         sh ''' 
-		    git pull https://github.com/arunkumarkp94/Java.git
+		    git clone https://github.com/arunkumarkp94/Java.git
 	   '''
         }
     }
@@ -14,7 +14,7 @@ pipeline {
 		steps {
 			echo "Build a binary"
         sh ''' 
-			cd ~/jenkins/workspace/Deploy_Java_Build_Tomcat/Java
+			cd ~/jenkins/workspace/Deploy_build/Java
 			mvn clean package
 	   '''
       }
