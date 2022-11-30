@@ -25,6 +25,7 @@ pipeline {
 	sh ''' 	
                        cd /home/ubuntu/jenkins/workspace/Deploy_build/Java/target
 			if [ $? -eq 0 ];then
+				cp *.war ~/jenkins/artifacts/
 				echo " success "
 			else
 				echo " fail "
