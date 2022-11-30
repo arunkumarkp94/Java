@@ -14,7 +14,7 @@ pipeline {
 		steps {
 			echo "Build a binary"
         sh ''' 
-			cd ~/jenkins/workspace/Deploy_build/Java
+			
 			mvn clean package
 	   '''
       }
@@ -22,7 +22,7 @@ pipeline {
 	stage ('DEPLOY') {
                 steps{
                      echo "archiving"
-			cd /home/ubuntu/jenkins/workspace/Deploy_build/Java/target
+			
                         archiveArtifacts artifacts: '/.war', followSymlinks: false
                 }
  	 }
