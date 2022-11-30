@@ -22,13 +22,14 @@ pipeline {
 	stage ('DEPLOY') {
                 steps{
                      echo "archiving"
-			
+	sh ''' 	
                        cd /home/ubuntu/jenkins/workspace/Deploy_build/Java/target
 			if [ $? -eq 0 ];then
 				echo " success "
 			else
 				echo " fail "
 			fi
+	   ''' 
                 }
  	 }
   }
