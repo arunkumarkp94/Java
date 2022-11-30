@@ -20,10 +20,9 @@ pipeline {
       }
     }
 	stage ('DEPLOY') {
-                steps {
-                    script{
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat_id', path: '', url: 'http://54.235.43.105:8080/')], contextPath: null, war: '**/*.war'
-		    }
+                steps{
+                     echo "archiving"
+                        archiveArtifacts artifacts: '/.war', followSymlinks: false
                 }
  	 }
   }
