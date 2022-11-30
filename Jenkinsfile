@@ -23,7 +23,12 @@ pipeline {
                 steps{
                      echo "archiving"
 			
-                        archiveArtifacts artifacts: '/.war', followSymlinks: false
+                       cd /home/ubuntu/jenkins/workspace/Deploy_build/Java/target
+			if [ $? -eq 0 ];then
+				echo " success "
+			else
+				echo " fail "
+			fi
                 }
  	 }
   }
