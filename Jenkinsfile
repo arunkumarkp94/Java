@@ -5,7 +5,7 @@ pipeline{
     stages{
         stage('CLONING REPO'){
             steps{
-                git branch: 'main', url: 'https://github.com/arunkumarkp94/Java.git'
+                git branch: 'main', url: 'https://github.com/cpdani14/Test1_Java.git'
             }
         }    
             stage('BUILD'){
@@ -14,9 +14,13 @@ pipeline{
                 }
             }
             stage('DEPLOYING'){
-                   post{
+                steps{
+                     echo "archiving"
+                        archiveArtifacts artifacts: '*/*.war', followSymlinks: false
+                }
+                post{
                     success{
-                        deploy adapters: [tomcat9(credentialsId: 'tomcat_credential', path: '', url: 'http://13.233.216.107:8080/')], contextPath: null, war: '*/*.war'
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat_cred_robot', path: '', url: 'http://43.204.36.139:8080/')], contextPath: null, war: '*/*.war'
 
                     }
                 }
@@ -24,7 +28,8 @@ pipeline{
         stage ('TESTING') {
 		steps {
 		sh '''
-		        mvn test
+		 cd /opt/jenkins/workspace/Pipeline_Java_Build_Deploy/
+		 mvn test
 			echo "Testest successfully"
 		'''
         	}
