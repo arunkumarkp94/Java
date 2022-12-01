@@ -1,37 +1,38 @@
-pipeline {
-  agent { label 'Java_node' }
-  stages {
-    stage ('CLONE') {
-      steps {
-        echo "cloning java project from git"
-        sh ''' 
-		    git pull https://github.com/arunkumarkp94/Java.git
-	   '''
-        }
+pipeline{
+    agent{
+        label 'label1'
     }
-   stage ('BUILD') {
-		agent { label 'Java_node' }
-		steps {
-			echo "Build a binary"
-        sh ''' 
-			
-			mvn clean package
-	   '''
-      }
-    }
-	stage ('DEPLOY') {
+    stages{
+        stage('CLONING REPO'){
+            steps{
+                git branch: 'main', url: 'https://github.com/arunkumarkp94/Java.git'
+            }
+        }    
+            stage('BUILD'){
+                steps{
+                  sh 'mvn clean install'  
+                }
+            }
+            stage('DEPLOYING'){
                 steps{
                      echo "archiving"
-	sh ''' 	
-                       cd /home/ubuntu/jenkins/workspace/Deploy_build/Java/target
-			if [ $? -eq 0 ];then
-				cp *.war ~/jenkins/artifacts/
-				echo " success "
-			else
-				echo " fail "
-			fi
-	   ''' 
+                        archiveArtifacts artifacts: '/.war', followSymlinks: false
                 }
- 	 }
-  }
+                post{
+                    success{
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat_credential', path: '', url: 'http://13.233.216.107:8080/')], contextPath: null, war: '*/*.war'
+
+                    }
+                }
+            }
+        stage ('TESTING') {
+		steps {
+		sh '''
+		 cd /opt/jenkins/workspace/Pipeline_Java_Build_Deploy/
+		 mvn test
+			echo "Testest successfully"
+		'''
+        	}
+		}
+    }
 }
