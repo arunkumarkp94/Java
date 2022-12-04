@@ -1,11 +1,11 @@
 pipeline{
     agent{
-        label 'label1'
+        label 'agent1'
     }
     stages{
         stage('CLONING REPO'){
             steps{
-                git branch: 'main', url: 'https://github.com/cpdani14/Test1_Java.git'
+                git branch: 'main', url: 'https://github.com/arunkumarkp94/Java.git'
             }
         }    
             stage('BUILD'){
@@ -13,17 +13,22 @@ pipeline{
                   sh 'mvn clean install'  
                 }
             }
-            stage('Artifacts_Backup'){
+            stage('DEPLOYING'){
                 steps{
                      echo "archiving"
                         archiveArtifacts artifacts: '*/*.war', followSymlinks: false
                 }
-               
+                post{
+                    success{
+                        deploy adapters: [tomcat9(credentialsId: '3b13c28c-8485-424f-b2b2-7bbda84fe0dd', path: '', url: 'http://44.201.233.201:8080/')], contextPath: null, war: '*/*.war'
+                    }
+                }
             }
         stage ('TESTING') {
 		steps {
 		sh '''
-			 mvn test
+		 cd /opt/jenkins/workspace/Pipeline_Java_Build_Deploy/
+		 mvn test
 			echo "Testest successfully"
 		'''
         	}
