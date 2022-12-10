@@ -20,7 +20,7 @@ pipeline{
                 }
                 post{
                     success{
-                        deploy adapters: [tomcat9(credentialsId: '3b13c28c-8485-424f-b2b2-7bbda84fe0dd', path: '', url: 'http://44.201.233.201:8080/')], contextPath: null, war: '*/*.war'
+                        deploy adapters: [tomcat9(credentialsId: '3b13c28c-8485-424f-b2b2-7bbda84fe0dd', path: '', url: 'http://54.161.203.119:8080/')], contextPath: null, war: '*/*.war'
                     }
                 }
             }
