@@ -28,6 +28,8 @@ pipeline{
         stage ('TESTING') {
 		steps {
 		sh '''
+		cd /opt/jenkins/workspace/Deploy_Java_Build_Tomcat/target
+		mvn test
 		echo "Testest successfully"
 		'''
         	}
