@@ -20,7 +20,8 @@ pipeline{
                 }
                 post{
                     success{
-                        deploy adapters: [tomcat9(credentialsId: 'tomcat_admin', path: '', url: 'http://54.161.203.119:8080/')], contextPath: null, war: '*/*.war'
+                            deploy adapters: [tomcat9(credentialsId: 'robot', path: '', url: 'http://54.161.203.119:8080/')], contextPath: null, war: '*/*.war'
+			    
 		    }
                 }
             }
